@@ -23,8 +23,13 @@ if command -v tput &>/dev/null && tty -s; then
   RED=$(tput setaf 1)
   GREEN=$(tput setaf 2)
   MAGENTA=$(tput setaf 5)
+  CYAN=$(tput setaf 6)
   NORMAL=$(tput sgr0)
   BOLD=$(tput bold)
+  YELLOW=$(tput setaf 3)
+  BLUE=$(tput setaf 4)
+  BBLACK=$(echo -en "\e[90m")
+  LGREY=$(echo -en "\e[37m")
 else
   RED=$(echo -en "\e[31m")
   GREEN=$(echo -en "\e[32m")
@@ -38,11 +43,11 @@ log_header() {
 }
 
 log_success() {
-  printf "${GREEN}✔ %s${NORMAL}\n" "$@" >&2
+  printf " ${GREEN}✔ Success${NORMAL}${BLUE}:${NORMAL} ${BBLACK}%s${NORMAL}\n" "$@" >&2
 }
 
 log_failure() {
-  printf "${RED}✖ %s${NORMAL}\n" "$@" >&2
+  printf " ${RED}✖ Failure${NORMAL}${BLUE}:${NORMAL} ${CYAN}%s${NORMAL}\n" "$@" >&2
 }
 
 
@@ -85,6 +90,24 @@ assert_false() {
   local msg="${2-}"
 
   assert_eq false "$actual" "$msg"
+  return "$?"
+}
+
+assert_fail() {
+  local msg="errorlevel>0 :: $@"
+  "$@" 2>&1 1>/dev/null
+  local code=$?
+
+  assert_lt 0 "$code" "$msg"
+  return "$?"
+}
+
+assert_ok() {
+  local msg="errorlevel==0 :: $@"
+  "$@" 2>&1 1>/dev/null
+  local code=$?
+
+  assert_eq 0 "$code" "$msg"
   return "$?"
 }
 

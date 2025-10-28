@@ -1,5 +1,10 @@
 # assert.sh
 
+## fork changes:
+- 2 asserts to run cmd with args and check errorlevel: `assert_fail` and `assert_ok`
+- Modified colorized output
+All credits to original author.
+
 [![Build Status](https://travis-ci.com/torokmark/assert.sh.svg?branch=master)](https://travis-ci.com/torokmark/assert.sh)
 
 Assert.sh is intended to give the assertion mechanism to shell scripts with well-known assert functions like `assert_eq`, `assert_array_eq`, or `assert_empty`.
@@ -53,6 +58,10 @@ assert_eq "hello" "world"
 * `assert_ge` checks whether the first param is greator than or equal to the second one.
 * `assert_lt` checks whether the first param is less than the second one.
 * `assert_le` checks whether the first param is less than or equal to the second one.
+
+### Added asserts
+* `assert_fail` command errorlevel > 0, cmd called with supplied args
+* `assert_ok` command errorlevel == 0, cmd called with supplied args
 
 ### How to write tests
 

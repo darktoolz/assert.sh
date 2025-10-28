@@ -3,6 +3,7 @@
 ## fork changes:
 - 2 asserts to run cmd with args and check errorlevel: `assert_fail` and `assert_ok`
 - Modified colorized output
+
 All credits to original author.
 
 [![Build Status](https://travis-ci.com/torokmark/assert.sh.svg?branch=master)](https://travis-ci.com/torokmark/assert.sh)
